@@ -1,0 +1,7 @@
+{
+  "name": "St. Gabriel's Dayspring School",
+  "description": "A professional one-page school website designed for St. Gabriel's Dayspring School in Ghana, featuring admissions information, academic highlights, and a gallery.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>St. Gabriel's Dayspring School - A Place Where Children Blossom</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        school: {
+                            green: '#008000',     /* Extracted from ribbon/swirls */
+                            greenDark: '#005700',
+                            red: '#D80000',       /* Extracted from child silhouette/text outline */
+                            blue: '#000080',      /* Extracted from child silhouette */
+                            yellow: '#FFD700',    /* Complementary accent */
+                            light: '#F3F8F3',     /* Light green tint for backgrounds */
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        heading: ['Nunito', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Fallback background if video doesn't load */
+        .hero-bg-fallback {
+            background-color: #000000;
+            background-image: url("https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        .gallery-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+        .gallery-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .gallery-scroll::-webkit-scrollbar-thumb {
+            background: #008000;
+            border-radius: 4px;
+        }
+
+        /* Animation Classes */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu Transition */
+        #mobile-menu {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        #mobile-menu.open {
+            max-height: 500px;
+            opacity: 1;
+        }
+    </style>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="font-sans text-gray-800 bg-white">
+
+    <!-- Header / Navigation -->
+    <header class="fixed w-full top-0 z-30 glass-nav transition-all duration-300" id="main-header">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo Section -->
+            <a href="#" class="flex items-center gap-3 group">
+                <!-- Placeholder for actual logo file -->
+                <div class="w-12 h-12 relative flex items-center justify-center bg-white rounded-full shadow-sm border border-gray-100 overflow-hidden">
+                    <img src="LOGO.jpeg" alt="School Logo" class="object-cover w-full h-full p-1" />
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-school-green font-heading font-extrabold text-lg md:text-xl leading-tight tracking-tight group-hover:text-school-greenDark transition-colors">St. Gabriel's</span>
+                    <span class="text-school-red font-heading font-bold text-sm md:text-base leading-tight">Dayspring School</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="#about" class="text-gray-600 font-semibold hover:text-school-green transition-colors">About Us</a>
+                <a href="#academics" class="text-gray-600 font-semibold hover:text-school-green transition-colors">Academics</a>
+                <a href="#gallery" class="text-gray-600 font-semibold hover:text-school-green transition-colors">Gallery</a>
+                <a href="#contact" class="text-gray-600 font-semibold hover:text-school-green transition-colors">Contact</a>
+                
+                <!-- Social Icons Divider -->
+                <div class="h-6 w-px bg-gray-300 mx-2"></div>
+                
+                <!-- Social Icons -->
+                <div class="flex items-center gap-4">
+                    <a href="#" class="text-gray-500 hover:text-blue-600 transition-colors transform hover:scale-110" title="Facebook"><i class="fa-brands fa-facebook-f text-lg"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-pink-600 transition-colors transform hover:scale-110" title="Instagram"><i class="fa-brands fa-instagram text-lg"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-black transition-colors transform hover:scale-110" title="TikTok"><i class="fa-brands fa-tiktok text-lg"></i></a>
+                </div>
+
+                <a href="#enquiry" class="bg-school-red hover:bg-red-700 text-white px-6 py-2.5 rounded-full font-bold shadow-md transition-transform hover:scale-105 ml-2">
+                    Admissions
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-school-green text-2xl focus:outline-none" onclick="toggleMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="bg-white border-t border-gray-100 md:hidden shadow-lg">
+            <div class="flex flex-col p-4 space-y-4">
+                <a href="#about" class="text-gray-700 font-semibold hover:text-school-green" onclick="toggleMenu()">About Us</a>
+                <a href="#academics" class="text-gray-700 font-semibold hover:text-school-green" onclick="toggleMenu()">Academics</a>
+                <a href="#gallery" class="text-gray-700 font-semibold hover:text-school-green" onclick="toggleMenu()">Gallery</a>
+                <a href="#contact" class="text-gray-700 font-semibold hover:text-school-green" onclick="toggleMenu()">Contact</a>
+                
+                <!-- Mobile Social Icons -->
+                <div class="flex gap-6 py-3 border-t border-gray-100 justify-start">
+                    <a href="#" class="text-gray-500 hover:text-blue-600"><i class="fa-brands fa-facebook-f text-xl"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-pink-600"><i class="fa-brands fa-instagram text-xl"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-black"><i class="fa-brands fa-tiktok text-xl"></i></a>
+                </div>
+
+                <a href="#enquiry" class="text-school-red font-bold" onclick="toggleMenu()">Admission Enquiry</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden text-center px-4 pt-20 hero-bg-fallback">
+        <!-- Video Background -->
+        <!-- 
+             INSTRUCTIONS: 
+             1. Place your background video file in the project folder.
+             2. Rename it to 'BG VIDEO.mp4' or update the src below.
+        -->
+        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+            <source src="BG VIDEO.mp4" type="video/mp4">
+        </video>
+
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-school-green/80 mix-blend-multiply z-10"></div>
+        <div class="absolute inset-0 bg-black/40 z-10"></div>
+
+        <div class="relative z-20 max-w-4xl mx-auto flex flex-col items-center fade-in-up">
+            <!-- Large Logo in Hero -->
+            <div class="w-32 h-32 md:w-48 md:h-48 bg-white rounded-full p-2 mb-6 shadow-2xl animate-fade-in">
+                 <!-- Placeholder simulates the uploaded logo -->
+                <img src="LOGO.jpeg" alt="St Gabriel's Logo" class="w-full h-full object-contain rounded-full">
+            </div>
+
+            <h1 class="font-heading font-extrabold text-4xl md:text-6xl text-white mb-4 text-shadow leading-tight">
+                St. Gabriel's <span class="text-yellow-400">Dayspring</span> School
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-100 mb-8 font-light italic tracking-wide">
+                "A place where children blossom"
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-4 w-full md:w-auto">
+                <a href="#enquiry" class="bg-school-red hover:bg-red-700 text-white text-lg font-bold py-4 px-8 rounded-full shadow-lg transition-all transform hover:-translate-y-1 hover:shadow-xl w-full md:w-auto">
+                    <i class="fa-solid fa-pen-to-square mr-2"></i> Admission Enquiry
+                </a>
+                <a href="#contact" class="bg-white hover:bg-gray-100 text-school-green text-lg font-bold py-4 px-8 rounded-full shadow-lg transition-all transform hover:-translate-y-1 hover:shadow-xl w-full md:w-auto">
+                    <i class="fa-solid fa-phone mr-2"></i> Contact School
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <a href="#about" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce text-2xl z-20">
+            <i class="fa-solid fa-chevron-down"></i>
+        </a>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-school-light">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <!-- Content -->
+                <div class="md:w-1/2 fade-in-up">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="h-1 w-12 bg-school-red"></div>
+                        <span class="text-school-red font-bold uppercase tracking-wider text-sm">Who We Are</span>
+                    </div>
+                    <h2 class="font-heading text-3xl md:text-4xl font-bold text-school-greenDark mb-6">
+                        Nurturing Minds, Building Character
+                    </h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Founded with a passion for excellence, St. Gabriel's Dayspring School is a premier basic educational institution in Ghana. We are dedicated to providing a holistic education that combines academic rigor with moral discipline.
+                    </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Our mission is to create a safe, stimulating environment where every child is encouraged to explore their potential and blossom into responsible future leaders.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-school-green">
+                            <i class="fa-solid fa-eye text-2xl text-school-green mb-2"></i>
+                            <h4 class="font-bold text-gray-800">Our Vision</h4>
+                            <p class="text-sm text-gray-500">To be a beacon of academic and moral excellence.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-school-blue">
+                            <i class="fa-solid fa-heart text-2xl text-school-blue mb-2"></i>
+                            <h4 class="font-bold text-gray-800">Our Values</h4>
+                            <p class="text-sm text-gray-500">Discipline, Integrity, Excellence, and Faith.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image -->
+                <div class="md:w-1/2 fade-in-up delay-200 relative">
+                    <div class="absolute -top-4 -left-4 w-24 h-24 bg-school-yellow rounded-full z-0 opacity-20"></div>
+                    <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-school-green rounded-full z-0 opacity-20"></div>
+                    <img src="LOGO.jpeg" alt="Head of School interacting with students" class="relative z-10 rounded-2xl shadow-xl w-full object-cover h-[400px] hover:scale-[1.02] transition-transform duration-500">
+                    <div class="absolute bottom-6 left-6 z-20 bg-white/90 backdrop-blur-sm p-4 rounded-lg shadow-lg max-w-xs">
+                        <p class="text-school-greenDark font-bold text-sm">"We believe every child is a unique gift capable of greatness."</p>
+                        <p class="text-xs text-gray-500 mt-1">- The Proprietress</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Academics Section -->
+    <section id="academics" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in-up">
+                <span class="text-school-blue font-bold uppercase tracking-wider text-sm">Academic Excellence</span>
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-gray-800 mt-2">
+                    Levels of <span class="text-school-green">Learning</span>
+                </h2>
+                <p class="text-gray-500 mt-4 max-w-2xl mx-auto">We follow the Ghana Education Service (GES) curriculum, enriched with Montessori principles to ensure practical understanding from the very start.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1: Creche & Nursery -->
+                <div class="group bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 fade-in-up">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1555819206-7b293f94a553?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Creche and Nursery" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-8">
+                        <div class="w-12 h-12 bg-school-red/10 rounded-full flex items-center justify-center text-school-red mb-4">
+                            <i class="fa-solid fa-baby text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Creche & Nursery</h3>
+                        <p class="text-gray-600 text-sm mb-4">A safe, loving "home away from home" where infants and toddlers develop motor skills through sensory play.</p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-center text-sm text-gray-500"><i class="fa-solid fa-check text-school-green mr-2"></i> Expert Caregivers</li>
+                            <li class="flex items-center text-sm text-gray-500"><i class="fa-solid fa-check text-school-green mr-2"></i> Safe Environment</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 2: Kindergarten -->
+                <div class="group bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 fade-in-up delay-100">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Kindergarten" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-8">
+                        <div class="w-12 h-12 bg-school-yellow/20 rounded-full flex items-center justify-center text-school-greenDark mb-4">
+                            <i class="fa-solid fa-shapes text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Kindergarten (KG)</h3>
+                        <p class="text-gray-600 text-sm mb-4">Building the foundation for literacy and numeracy through creative activities and Montessori methods.</p>
+                         <ul class="space-y-2 mb-6">
+                            <li class="flex items-center text-sm text-gray-500"><i class="fa-solid fa-check text-school-green mr-2"></i> Phonics & Reading</li>
+                            <li class="flex items-center text-sm text-gray-500"><i class="fa-solid fa-check text-school-green mr-2"></i> Creative Arts</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 3: Primary -->
+                <div class="group bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 fade-in-up delay-200">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Primary School" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-8">
+                        <div class="w-12 h-12 bg-school-blue/10 rounded-full flex items-center justify-center text-school-blue mb-4">
+                            <i class="fa-solid fa-book-open text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Primary School</h3>
+                        <p class="text-gray-600 text-sm mb-4">A rigorous curriculum covering Science, Math, English, and ICT to foster critical thinking and academic excellence.</p>
+                         <ul class="space-y-2 mb-6">
+                            <li class="flex items-center text-sm text-gray-500"><i class="fa-solid fa-check text-school-green mr-2"></i> ICT & Computing</li>
+                            <li class="flex items-center text-sm text-gray-500"><i class="fa-solid fa-check text-school-green mr-2"></i> Sports & Culture</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- School Documentary Video -->
+    <section id="documentary" class="py-20 bg-gray-900 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-12 fade-in-up">
+                <span class="text-school-yellow font-bold uppercase tracking-wider text-sm">Watch Our Story</span>
+                <h2 class="font-heading text-3xl md:text-4xl font-bold text-white mt-2">
+                    Experience St. Gabriel's
+                </h2>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
+                    Take a virtual tour of our campus and see how we nurture the next generation of leaders.
+                </p>
+            </div>
+            
+            <div class="max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-2xl border-4 border-gray-700 bg-black aspect-video fade-in-up delay-100">
+                
+                <!-- 
+                     INSTRUCTIONS FOR VIDEO:
+                     1. Copy your school documentary video file into the same folder as this index.html file.
+                     2. Change the 'src' value below to your video filename (e.g. src="school_documentary.mp4").
+                -->
+                <video class="w-full h-full bg-black" controls>
+                    <source src="school documentary.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Enquiry Form Section -->
+    <section id="enquiry" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto bg-school-light rounded-2xl shadow-xl overflow-hidden fade-in-up">
+                <div class="bg-school-green py-6 px-8 text-center">
+                    <h2 class="font-heading text-2xl md:text-3xl font-bold text-white">Make an Enquiry</h2>
+                    <p class="text-green-100 mt-2">Have questions? Fill out the form below and we'll get back to you.</p>
+                </div>
+                
+                <form class="p-8 md:p-10 space-y-6" onsubmit="handleEnquiry(event)">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2 text-sm" for="parentName">Parent's Name</label>
+                            <input type="text" id="parentName" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-school-green focus:ring-2 focus:ring-school-green/20 outline-none transition-all" placeholder="Enter your full name">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2 text-sm" for="phone">Phone Number</label>
+                            <input type="tel" id="phone" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-school-green focus:ring-2 focus:ring-school-green/20 outline-none transition-all" placeholder="020 000 0000">
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2 text-sm" for="email">Email Address</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-school-green focus:ring-2 focus:ring-school-green/20 outline-none transition-all" placeholder="example@email.com">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2 text-sm" for="grade">Interested Level</label>
+                            <select id="grade" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-school-green focus:ring-2 focus:ring-school-green/20 outline-none transition-all bg-white">
+                                <option value="" disabled selected>Select a class</option>
+                                <option value="Creche">Creche</option>
+                                <option value="Nursery">Nursery</option>
+                                <option value="Kindergarten">Kindergarten</option>
+                                <option value="Primary">Primary</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 font-bold mb-2 text-sm" for="message">Your Message</label>
+                        <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-school-green focus:ring-2 focus:ring-school-green/20 outline-none transition-all" placeholder="How can we help you?"></textarea>
+                    </div>
+
+                    <div class="text-center pt-2">
+                        <button type="submit" class="bg-school-red hover:bg-red-700 text-white text-lg font-bold py-3 px-10 rounded-full shadow-lg transition-transform hover:-translate-y-1 w-full md:w-auto">
+                            Send Enquiry
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-school-light">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-end mb-10">
+                <div>
+                    <h2 class="font-heading text-3xl font-bold text-school-greenDark">School Life</h2>
+                    <p class="text-gray-500">Moments of joy, learning, and growth.</p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="scrollGallery('left')" class="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-school-green hover:text-white hover:border-school-green transition-colors">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button onclick="scrollGallery('right')" class="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-school-green hover:text-white hover:border-school-green transition-colors">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Swipeable Container -->
+            <div id="gallery-track" class="gallery-scroll flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scroll-smooth">
+                <!-- Image 1 -->
+                <div class="min-w-[85vw] md:min-w-[400px] h-64 rounded-xl overflow-hidden shadow-md snap-center relative group">
+                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Classroom learning" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+                        <span class="text-white font-bold">Interactive Learning</span>
+                    </div>
+                </div>
+                <!-- Image 2 -->
+                <div class="min-w-[85vw] md:min-w-[400px] h-64 rounded-xl overflow-hidden shadow-md snap-center relative group">
+                    <img src="https://images.unsplash.com/photo-1588075592446-39e673792139?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Playground" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+                        <span class="text-white font-bold">Extracurriculars</span>
+                    </div>
+                </div>
+                <!-- Image 3 -->
+                <div class="min-w-[85vw] md:min-w-[400px] h-64 rounded-xl overflow-hidden shadow-md snap-center relative group">
+                    <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cultural Day" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+                        <span class="text-white font-bold">Cultural Day</span>
+                    </div>
+                </div>
+                <!-- Image 4 -->
+                <div class="min-w-[85vw] md:min-w-[400px] h-64 rounded-xl overflow-hidden shadow-md snap-center relative group">
+                    <img src="https://images.unsplash.com/photo-1427504746696-ea5abd71a309?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Library" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+                        <span class="text-white font-bold">Library Time</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Footer Section -->
+    <section id="contact" class="bg-gray-900 text-white pt-20 pb-10">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12 mb-16">
+                <!-- Contact Info -->
+                <div class="space-y-8">
+                    <div>
+                        <h2 class="font-heading text-3xl font-bold mb-6">Get in Touch</h2>
+                        <p class="text-gray-400 mb-8">We would love to hear from you. Visit us for a tour or contact us for more information.</p>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-school-green shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Visit Us</h4>
+                                <p class="text-gray-400 text-sm">
+                                    MS24 Cassava St, No.4 Agyei IV St<br>
+                                    Kumasi, Ghana<br>
+                                    <span class="text-yellow-500">GPS:</span> AK-646-4226
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-school-green shrink-0">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Call Us</h4>
+                                <p class="text-gray-400 text-sm">
+                                    020 814 0833 / 024 864 0664<br>
+                                    055 559 0891 / 020 826 3475
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-school-green shrink-0">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Email Us</h4>
+                                <p class="text-gray-400 text-sm">stgabriels05@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map -->
+                <div class="h-[300px] md:h-full bg-gray-800 rounded-xl overflow-hidden">
+                    <iframe 
+                        src="https://maps.google.com/maps?q=St.+Gabriel's+Dayspring+School,+Kumasi&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex flex-col gap-2 md:items-start items-center">
+                     <span class="text-lg font-bold text-white">St. Gabriel's Dayspring School</span>
+                     <span class="text-xs text-school-yellow uppercase tracking-widest text-center md:text-left">
+                        God-Fearing &bull; Interactive &bull; Group Learning &bull; Healthy Activities
+                     </span>
+                </div>
+                <div class="flex gap-4">
+                    <a href="#" class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-white hover:bg-school-blue transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-white hover:bg-school-red transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://wa.me/233248640664" class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-white hover:bg-school-green transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-gray-500 text-sm">&copy; 2024 St. Gabriel's Dayspring School. All rights reserved.</p>
+                    <p class="text-gray-600 text-xs mt-1">Powered by <span class="text-school-green">Awuku & Associates Educational Consult</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/233248640664" target="_blank" aria-label="Chat on WhatsApp" class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-xl transition-transform hover:scale-110 hover:shadow-2xl">
+        <span class="absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-30 animate-ping"></span>
+        <i class="fa-brands fa-whatsapp text-3xl relative z-10"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        // Toggle Mobile Menu
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('open');
+        }
+
+        // Gallery Scrolling
+        function scrollGallery(direction) {
+            const track = document.getElementById('gallery-track');
+            const scrollAmount = 300; // Approx card width
+            if (direction === 'left') {
+                track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            } else {
+                track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+        }
+
+        // Handle Enquiry Form Submission (Mock)
+        function handleEnquiry(event) {
+            event.preventDefault();
+            // In a real app, send data to backend here.
+            // For now, show success message.
+            const btn = event.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerText;
+            
+            btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i> Sent Successfully';
+            btn.classList.replace('bg-school-red', 'bg-green-600');
+            btn.classList.replace('hover:bg-red-700', 'hover:bg-green-700');
+            
+            setTimeout(() => {
+                event.target.reset();
+                btn.innerText = originalText;
+                btn.classList.replace('bg-green-600', 'bg-school-red');
+                btn.classList.replace('hover:bg-green-700', 'hover:bg-red-700');
+                alert("Thank you for your enquiry. We will contact you shortly!");
+            }, 2000);
+        }
+
+        // Intersection Observer for Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-md');
+                header.classList.remove('py-3');
+                header.classList.add('py-2');
+            } else {
+                header.classList.remove('shadow-md');
+                header.classList.remove('py-2');
+                header.classList.add('py-3');
+            }
+        });
+    </script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
